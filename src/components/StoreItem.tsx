@@ -1,4 +1,5 @@
 import { Card, Button } from "react-bootstrap";
+import { useShoppingCart } from "../context/ShoppingCartContext";
 import { formatCurrency } from "../utilities/formatCurrency";
 
 type StoreItemProps = {
@@ -9,7 +10,13 @@ type StoreItemProps = {
 };
 
 export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
-    const quantity: number = 0;
+    const {
+        getItemQuantity,
+        increaseCartQuantity,
+        decreaseCartQuantity,
+        removeFromCart,
+    } = useShoppingCart();
+    const quantity: number = getItemQuantity(id);
     return (
         <Card className="h-100">
             <Card.Img
@@ -27,7 +34,13 @@ export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
                 </Card.Title>
                 <div className="mt-auto">
                     {quantity === 0 ? (
-                        <Button className="w-100"> + Add To Cart</Button>
+                        <Button
+                            className="w-100"
+                            onClick={() => increaseCartQuantity(id)}
+                        >
+                            {" "}
+                            + Add To Cart
+                        </Button>
                     ) : (
                         <div
                             className="d-flex align-items-center flex-column"
@@ -39,11 +52,14 @@ export function StoreItem({ id, name, price, imgUrl }: StoreItemProps) {
                             >
                                 <Button>-</Button>
                                 <div>
-                                    <span className="fs-3">{quantity}</span> in cart 
+                                    <span className="fs-3">{quantity}</span> in
+                                    cart
                                 </div>
                                 <Button>+</Button>
                             </div>
-                            <Button variant="danger" size="sm">Remove</Button>
+                            <Button variant="danger" size="sm">
+                                Remove
+                            </Button>
                         </div>
                     )}
                 </div>
