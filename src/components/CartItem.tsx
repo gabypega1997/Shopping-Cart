@@ -13,12 +13,19 @@ export function CartItem({ id, quantity }: CartItemProps) {
     if (item === null) return null;
 
     return (
-        <Stack gap={2} direction="horizontal">
+        <Stack
+            gap={2}
+            direction="horizontal"
+            className="d-flex align-items-center"
+        >
             <img
                 src={item?.imgUrl}
                 alt={item?.name}
                 style={{ width: "125px", height: "75px", objectFit: "cover" }}
             />
+            <div className="me-auto">
+                <div></div>
+            </div>
         </Stack>
     );
 }
