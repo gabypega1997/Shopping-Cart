@@ -34,7 +34,8 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const openCart = () => setIsOpen(true);
     const closeCart = () => setIsOpen(false);
 
-    function getItemQuantity(id: number) {
+    function getItemQuantity(id: number): number {
+        
         return cartItems.find((item) => item.id === id)?.quantity || 0;
     }
     function increaseCartQuantity(id: number) {
